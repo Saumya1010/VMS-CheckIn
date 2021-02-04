@@ -1,13 +1,125 @@
+@font-face {
+  font-family: "Bogle";
+  src: url("./assets/fonts/Bogle/Bogle-Regular.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Bogle-bold";
+  src: url("./assets/fonts/Bogle/Bogle-Bold.otf");
+  font-weight: normal;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Bogle", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.align-center {
+  text-align: center;
+}
+button {
+  border-radius: 20px;
+}
+/* .form-style {
+  margin: theme.spacing(1);
+  width: "300px";
+} */
+
+a.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-outlinedSizeLarge.MuiButton-sizeLarge {
+  margin-right: 20px;
+}
+.back-next-button {
+  margin-top: 20px;
+}
+.back-button {
+  border-radius: 20px;
+}
+.next-button {
+  border-radius: 20px;
+}
+.navbar-component {
+  margin-top: 40px;
+}
+.visit-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 850px;
+  float: none;
+  margin: 0 auto;
+  padding: 50px 0;
+}
+.visit-block {
+  width: 300px;
+  padding: 30px 20px;
+  border: 2px solid lightblue;
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: none;
+  margin: 5px;
+}
+.visit-block:hover {
+  box-shadow: 0px 0px 0px 5px #337cf6;
+  transition: 300ms;
+  background: rgb(220, 243, 250);
+}
+.visit-block.active {
+  box-shadow: 0px 0px 0px 5px #337cf6;
+}
+.exit-icon a:hover {
+  color: #222222 !important;
+  transition: 200ms;
+}
+.ldrp-text {
+  right: 244px;
+  position: absolute;
+  font-size: 16px;
+  letter-spacing: 4px;
+  font-weight: 500;
+  color: darkorange;
+  top: 78px;
+  cursor: pointer;
+}
+h1 {
+  font-weight: 100;
+  font-size: 34px;
+}
+
+/* ---------------------------------------- */
+
+.contactform {
+  margin: 20px;
+}
+
+.contactform input {
+  margin-bottom: 5px;
+  height: 20px;
+  border: 1px solid #d8d8d8;
+  padding: 3px;
+}
+
+.contactform textarea {
+  border: 1px solid #d8d8d8;
+  padding: 3px;
+}
+
+.contactform button {
+  padding: 10px;
+  border: 1px solid #d8d8d8;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+}
+
+.contactform .error {
+  margin-left: 5px;
+  font-size: 13px;
+  color: red;
 }
