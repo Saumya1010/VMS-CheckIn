@@ -25,19 +25,26 @@ code {
 .align-center {
   text-align: center;
 }
+.main-heading {
+  font-weight: 100;
+  font-family: "Bogle", sans-serif !important;
+  font-size: 48px !important;
+  max-width: 600px;
+  margin: 0 auto 50px !important;
+}
+.extra-large {
+  font-size: 65px !important;
+  max-width: 700px;
+}
 button {
   border-radius: 20px;
 }
-/* .form-style {
-  margin: theme.spacing(1);
-  width: "300px";
-} */
 
 a.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-outlinedSizeLarge.MuiButton-sizeLarge {
   margin-right: 20px;
 }
 .back-next-button {
-  margin-top: 20px;
+  margin: 20px auto;
 }
 .back-button {
   border-radius: 20px;
@@ -46,7 +53,7 @@ a.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary
   border-radius: 20px;
 }
 .navbar-component {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 .visit-wrapper {
   display: flex;
@@ -77,49 +84,4 @@ a.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary
 .exit-icon a:hover {
   color: #222222 !important;
   transition: 200ms;
-}
-.ldrp-text {
-  right: 244px;
-  position: absolute;
-  font-size: 16px;
-  letter-spacing: 4px;
-  font-weight: 500;
-  color: darkorange;
-  top: 78px;
-  cursor: pointer;
-}
-h1 {
-  font-weight: 100;
-  font-size: 34px;
-}
-
-/* ---------------------------------------- */
-
-.contactform {
-  margin: 20px;
-}
-
-.contactform input {
-  margin-bottom: 5px;
-  height: 20px;
-  border: 1px solid #d8d8d8;
-  padding: 3px;
-}
-
-.contactform textarea {
-  border: 1px solid #d8d8d8;
-  padding: 3px;
-}
-
-.contactform button {
-  padding: 10px;
-  border: 1px solid #d8d8d8;
-  background-color: #f9f9f9;
-  border-radius: 3px;
-}
-
-.contactform .error {
-  margin-left: 5px;
-  font-size: 13px;
-  color: red;
 }

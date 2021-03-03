@@ -1,85 +1,64 @@
 import React, { useState } from "react";
-import { Button, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { Button, Grid, Typography, makeStyles } from "@material-ui/core";
 
-import { useForm, useField, splitFormProps } from "react-form";
+import { useForm } from "react-form";
+import InputField from "../components/InputField";
+import { setVisitor } from "../actions/visitorAction";
 
-const InputField = React.forwardRef((props, ref) => {
-  // Let's use splitFormProps to get form-specific props
-  const [field, fieldOptions, rest] = splitFormProps(props);
+import validator from "validator";
 
-  // Use the useField hook with a field and field options
-  // to access field state
-  const {
-    meta: { error, isTouched, isValidating, message },
-    getInputProps,
-  } = useField(field, fieldOptions);
-
-  // Build the field
-  return (
-    <>
-      <TextField fullWidth {...getInputProps({ ref, ...rest })} />
-
-      {/*
-        Let's inline some validation and error information
-        for our field
-      */}
-
-      {isValidating ? (
-        <em>Validating...</em>
-      ) : isTouched && error ? (
-        <strong>{error}</strong>
-      ) : message ? (
-        <small>{message}</small>
-      ) : null}
-    </>
-  );
-});
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-}));
-
-export default function Info() {
+const Info = (props) => {
   const classes = useStyles();
+
+  const [isValid, setIsValid] = useState(false);
+  const [doRedirect, setRedirect] = useState();
 
   const defaultValues = React.useMemo(
     () => ({
       email: "",
+      phone: "",
+      firstName: "",
+      lastName: "",
     }),
     []
   );
 
   const {
     Form,
-    values,
-    pushFieldValue,
-    removeFieldValue,
     meta: { isSubmitting, isSubmitted, canSubmit, error },
   } = useForm({
     defaultValues,
     validate: (values) => {
-      // if (values.name === "tanner" && values.age !== "29") {
-      //   return "This is not tanner's correct age";
-      // }
-      return false;
+      console.log("validate---", values);
+      setIsValid(canSubmit);
+      return true;
     },
-    onSubmit: async (values, instance) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log(values);
+    onSubmit: (values, instance) => {
+      console.log("submit ----", values);
+      if (isValid) {
+        props.setVisitor(values);
+        setRedirect("/photo");
+      }
     },
     debugForm: false,
   });
 
+  if (doRedirect) {
+    return (
+      <Redirect
+        to={{
+          pathname: doRedirect,
+        }}
+      />
+    );
+  }
   return (
     <div className="align-center">
-      <h1>Tell us about yourself.</h1>
+      <Typography variant="h1" component="h1" className="main-heading">
+        Tell us about yourself.
+      </Typography>
       <Form>
         <Grid
           container
@@ -93,7 +72,15 @@ export default function Info() {
               variant="outlined"
               label="Email id"
               required
-              // validate={(value) => (!value ? "Required" : false)}
+              validate={(value) => {
+                if (!value) {
+                  return "Email is required";
+                }
+                if (!validateEmail(value)) {
+                  return "Please enter a valid email addresss";
+                }
+                return false;
+              }}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -103,17 +90,37 @@ export default function Info() {
               variant="outlined"
               name="phone"
               field="phone"
-              required
+              validate={(value) => {
+                if (!value) {
+                  return "Phone Number is required";
+                }
+                if (!validatePhone(value)) {
+                  return "Please enter a valid Phone Number";
+                }
+                return false;
+              }}
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <InputField
-              field="first-name"
-              name="first-name"
+              field="firstName"
+              name="firstName"
               variant="outlined"
               label="First Name"
               required
-              // validate={(value) => (!value ? "Required" : false)}
+              validate={(value) => {
+                if (!value) {
+                  return "First Name is required";
+                }
+                if (!validateName(value)) {
+                  return "Please enter only letters";
+                }
+
+                if (value && value.length < 3) {
+                  return "Your name should atleast be three letters";
+                }
+                return false;
+              }}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -121,13 +128,71 @@ export default function Info() {
               required
               label="Last Name"
               variant="outlined"
-              name="last-name"
-              field="last-name"
-              required
+              name="lastName"
+              field="lastName"
+              validate={(value) => {
+                if (!value) {
+                  return "Last Name is required";
+                }
+                if (!validateName(value)) {
+                  return "Please enter only letters";
+                }
+
+                if (value && value.length < 3) {
+                  return "Your name should atleast be three letters";
+                }
+                return false;
+              }}
             />
           </Grid>
+          <div className="back-next-button">
+            <Button
+              color="primary"
+              variant="outlined"
+              size="large"
+              href="/welcome"
+              style={{ borderRadius: "20px" }}
+            >
+              Back
+            </Button>
+            <Button
+              color="primary"
+              type="submit"
+              variant="contained"
+              size="large"
+              style={{ borderRadius: "20px" }}
+            >
+              Next
+            </Button>
+          </div>
         </Grid>
       </Form>
     </div>
   );
+};
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    // "& .MuiTextField-root": {
+    //   margin: theme.spacing(1),
+    //   width: "25ch",
+    // },
+  },
+}));
+
+function validateEmail(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
 }
+
+function validatePhone(number) {
+  const isValidPhoneNumber = validator.isMobilePhone(number);
+  return isValidPhoneNumber;
+}
+
+function validateName(name) {
+  var letters = /^[A-Za-z]+$/;
+  return letters.test(String(name).toUpperCase());
+}
+
+export default connect(null, { setVisitor })(Info);

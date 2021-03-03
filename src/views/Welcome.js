@@ -1,23 +1,47 @@
-import React from "react";
-import { Button } from "@material-ui/core";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { Button, Typography } from "@material-ui/core";
 
-class Welcome extends React.Component {
-  render() {
+const Welcome = (props) => {
+  const [doRedirect, setRedirect] = useState();
+
+  const handleCheckinClick = () => {
+    setRedirect("info");
+  };
+
+  if (doRedirect) {
     return (
-      <div className="align-center">
-        <h1 style={{}}>Welcome to LDRP!</h1>
-        <Button
-          style={{ borderRadius: "20px", marginTop: "100px" }}
-          color="primary"
-          variant="contained"
-          size="large"
-          href="/info"
-        >
-          Check in
-        </Button>
-      </div>
+      <Redirect
+        to={{
+          pathname: doRedirect,
+        }}
+      />
     );
   }
-}
+  return (
+    <div className="align-center">
+      <Typography
+        variant="h1"
+        component="h1"
+        className="main-heading extra-large"
+      >
+        Welcome to LDRP Gandhinagar Campus!
+      </Typography>
+      <Button
+        className="button-style"
+        style={{
+          borderRadius: "20px",
+          marginTop: "100px",
+        }}
+        color="primary"
+        variant="contained"
+        size="large"
+        onClick={handleCheckinClick}
+      >
+        Check in
+      </Button>
+    </div>
+  );
+};
 
 export default Welcome;

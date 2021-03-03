@@ -1,44 +1,71 @@
-import React from "react";
-import { Button } from "@material-ui/core";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { Button, Typography } from "@material-ui/core";
 import HostName from "./HostName";
+import { setVisitor, submitVisit } from "../actions/visitorAction";
 
-class SelectHost extends React.Component {
-  render() {
+const SelectHost = (props) => {
+  const [host, setHost] = useState("");
+  const [doRedirect, setRedirect] = useState();
+
+  const onHostChange = (e, value) => {
+    setHost(value);
+  };
+
+  const handleNextClick = () => {
+    props.setVisitor({ host });
+    props.submitVisit();
+    setRedirect("/thankYou");
+  };
+
+  if (doRedirect) {
     return (
-      <div className="align-center">
-        <div style={{}}>
-          <h1>
-            Who are you visiting? <br /> We'll help you to notify your host.
-          </h1>
-        </div>
-        <div className="host-name">
-          <HostName />
-        </div>
-        <div className="back-next-button">
-          <form>
-            <Button
-              color="primary"
-              variant="outlined"
-              size="large"
-              href="/photo"
-              style={{ borderRadius: "20px" }}
-            >
-              Back
-            </Button>
-            <Button
-              color="primary"
-              variant="contained"
-              size="large"
-              href="/thankYou"
-              style={{ borderRadius: "20px" }}
-            >
-              Next
-            </Button>
-          </form>
-        </div>
-      </div>
+      <Redirect
+        to={{
+          pathname: doRedirect,
+        }}
+      />
     );
   }
-}
+  return (
+    <div className="align-center">
+      <Typography
+        variant="h1"
+        component="h1"
+        className="main-heading"
+        style={{ maxWidth: "700px" }}
+      >
+        Who are you visiting? <br /> We'll help you to notify your host.
+      </Typography>
+      <form>
+        <div className="host-name">
+          <HostName onChange={onHostChange} />
+        </div>
+        <div className="back-next-button">
+          <Button
+            color="primary"
+            variant="outlined"
+            size="large"
+            onClick={() => setRedirect("/photo")}
+            style={{ borderRadius: "20px" }}
+          >
+            Back
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+            size="large"
+            onClick={handleNextClick}
+            style={{ borderRadius: "20px" }}
+            disabled={!host}
+          >
+            Next
+          </Button>
+        </div>
+      </form>
+    </div>
+  );
+};
 
-export default SelectHost;
+export default connect(null, { setVisitor, submitVisit })(SelectHost);
