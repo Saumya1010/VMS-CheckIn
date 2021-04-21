@@ -18,10 +18,6 @@ const VisitDetail = (props) => {
     setHostReply(hostReply);
   };
 
-  const handleNextClick = () => {
-    setRedirect("/thankYouHost");
-  };
-
   console.log("host reply:", hostReply);
 
   useEffect(() => {
