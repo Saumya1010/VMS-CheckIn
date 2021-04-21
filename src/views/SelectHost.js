@@ -48,7 +48,7 @@ const SelectHost = (props) => {
             variant="outlined"
             size="large"
             onClick={() => setRedirect("/photo")}
-            style={{ borderRadius: "20px" }}
+            style={{ borderRadius: "20px", marginRight: "20px" }}
           >
             Back
           </Button>

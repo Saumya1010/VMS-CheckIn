@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
+import { Redirect } from "react-router-dom";
 import PersonIcon from "@material-ui/icons/Person";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import { connect } from "react-redux";
@@ -8,6 +9,21 @@ import { getVisit } from "../actions/visitorAction";
 
 const VisitDetail = (props) => {
   const { visit } = props;
+
+  const [doRedirect, setRedirect] = useState();
+
+  const [hostReply, setHostReply] = useState("");
+
+  const handleHostReply = (hostReply) => {
+    setHostReply(hostReply);
+  };
+
+  const handleNextClick = () => {
+    setRedirect("/thankYouHost");
+  };
+
+  console.log("host reply:", hostReply);
+
   useEffect(() => {
     console.log("mounted");
     props.getVisit(props.match.params.id);
@@ -19,6 +35,15 @@ const VisitDetail = (props) => {
 
   console.log("props ---->>>>>", props);
 
+  if (doRedirect) {
+    return (
+      <Redirect
+        to={{
+          pathname: doRedirect,
+        }}
+      />
+    );
+  }
   const renderVisitData = () => {
     return (
       <div className="align-center">
@@ -84,6 +109,7 @@ const VisitDetail = (props) => {
                 variant="contained"
                 size="large"
                 style={{ borderRadius: "20px", textTransform: "none" }}
+                onClick={() => handleHostReply("accepted")}
               >
                 I'm on my way!
               </Button>
@@ -92,9 +118,9 @@ const VisitDetail = (props) => {
               <Button
                 color="primary"
                 type="submit"
-                // variant="outlined"
                 size="large"
                 style={{ borderRadius: "20px", textTransform: "none" }}
+                onClick={() => handleHostReply("denied")}
               >
                 I'm not expecting them.
               </Button>
@@ -134,25 +160,41 @@ const VisitDetail = (props) => {
             <div className="visitor-detail">
               <div
                 className="visitor-first-name"
-                style={{ display: "flex", justifyContent: "space-around" }}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  margin: "0 80px",
+                }}
               >
                 <p>First-Name</p> <p>{visit.firstName}</p>
               </div>
               <div
-                className="visitor-lasst-name"
-                style={{ display: "flex", justifyContent: "space-around" }}
+                className="visitor-last-name"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  margin: "0 80px",
+                }}
               >
                 <p>Last-Name</p> <p>{visit.lastName}</p>
               </div>
               <div
                 className="visitor-email"
-                style={{ display: "flex", justifyContent: "space-around" }}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  margin: "0 80px",
+                }}
               >
                 <p>Email</p> <p>{visit.email}</p>
               </div>
               <div
                 className="visitor-phone"
-                style={{ display: "flex", justifyContent: "space-around" }}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  margin: "0 80px",
+                }}
               >
                 <p>Phone</p> <p>{visit.phone}</p>
               </div>

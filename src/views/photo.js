@@ -55,7 +55,7 @@ const Photo = (props) => {
             color="primary"
             variant="outlined"
             size="large"
-            style={{ borderRadius: "20px" }}
+            style={{ borderRadius: "20px", marginRight: "20px" }}
             onClick={() => setRedirect("/info")}
           >
             Back

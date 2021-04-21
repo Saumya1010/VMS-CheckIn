@@ -7,6 +7,7 @@ import SelectHost from "./views/SelectHost";
 import ThankYou from "./views/ThankYou";
 import Navbar from "./views/Navbar";
 import VisitType from "./views/VisitType";
+import ThankYouHost from "./views/ThankYouHost";
 
 // import Test from "./views/TestPhoto";
 import { Container } from "@material-ui/core";
@@ -25,6 +26,7 @@ function App() {
             <Route path="/selectHost" component={SelectHost} />
             <Route path="/thankYou" component={ThankYou} />
             <Route path="/visits/:id" component={VisitDetail} />
+            <Route path="/thankYouHost" component={ThankYouHost} />
             <Route path="/" component={VisitType} />
           </Switch>
         </Router>

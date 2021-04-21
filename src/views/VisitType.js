@@ -20,7 +20,7 @@ const VisitType = (props) => {
   const handleNextClick = () => {
     props.setVisitor({ visitType });
     setRedirect("/welcome");
-  };
+  }; 
 
   if (doRedirect) {
     return (

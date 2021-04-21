@@ -32,6 +32,7 @@ const Welcome = (props) => {
         style={{
           borderRadius: "20px",
           marginTop: "100px",
+          padding: "12px 30px",
         }}
         color="primary"
         variant="contained"
